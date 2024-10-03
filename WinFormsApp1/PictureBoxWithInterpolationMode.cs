@@ -1,5 +1,7 @@
 ﻿using System.Drawing.Drawing2D;
 
+namespace WinFormsApp1;
+
 public class PictureBoxWithInterpolationMode : PictureBox
 {
     public InterpolationMode InterpolationMode { get; set; }
