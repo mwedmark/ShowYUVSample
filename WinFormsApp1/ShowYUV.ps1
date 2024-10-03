@@ -1,0 +1,1 @@
+& 'C:\Program Files (x86)\VideoLAN\VLC\vlc.exe'  --demux rawvideo --rawvid-fps 30 --rawvid-width 352 --rawvid-height 288 --rawvid-chroma I420 .\akiyo_cif.yuv
