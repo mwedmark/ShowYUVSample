@@ -7,16 +7,8 @@
       "RelativeMoniker": "D:0:0:{54D98834-793E-491D-9162-BD88E74FDCFC}|WinFormsApp1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{54D98834-793E-491D-9162-BD88E74FDCFC}|WinFormsApp1.csproj|c:\\git\\showyuvsample\\winformsapp1\\directbitmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54D98834-793E-491D-9162-BD88E74FDCFC}|WinFormsApp1.csproj|solutionrelative:directbitmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{54D98834-793E-491D-9162-BD88E74FDCFC}|WinFormsApp1.csproj|c:\\git\\showyuvsample\\winformsapp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{54D98834-793E-491D-9162-BD88E74FDCFC}|WinFormsApp1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{54D98834-793E-491D-9162-BD88E74FDCFC}|WinFormsApp1.csproj|c:\\git\\showyuvsample\\winformsapp1\\pictureboxwithinterpolationmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{54D98834-793E-491D-9162-BD88E74FDCFC}|WinFormsApp1.csproj|solutionrelative:pictureboxwithinterpolationmode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,33 +18,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DirectBitmap.cs",
-              "DocumentMoniker": "C:\\git\\ShowYUVSample\\WinFormsApp1\\DirectBitmap.cs",
-              "RelativeDocumentMoniker": "DirectBitmap.cs",
-              "ToolTip": "C:\\git\\ShowYUVSample\\WinFormsApp1\\DirectBitmap.cs",
-              "RelativeToolTip": "DirectBitmap.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-28T14:03:53.871Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PictureBoxWithInterpolationMode.cs",
-              "DocumentMoniker": "C:\\git\\ShowYUVSample\\WinFormsApp1\\PictureBoxWithInterpolationMode.cs",
-              "RelativeDocumentMoniker": "PictureBoxWithInterpolationMode.cs",
-              "ToolTip": "C:\\git\\ShowYUVSample\\WinFormsApp1\\PictureBoxWithInterpolationMode.cs",
-              "RelativeToolTip": "PictureBoxWithInterpolationMode.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T20:45:26.186Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{13b12e3e-c1b4-4539-9371-4fe9a0d523fc}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
@@ -62,21 +40,21 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\git\\ShowYUVSample\\WinFormsApp1\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAowFwAAAAjAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T20:34:25.338Z",
+              "WhenOpened": "2024-10-03T08:00:57.682Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\git\\ShowYUVSample\\WinFormsApp1\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\git\\ShowYUVSample\\WinFormsApp1\\Form1.cs [Design]",
               "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-22T20:59:52.942Z",
+              "WhenOpened": "2024-10-03T08:00:53.519Z",
               "EditorCaption": " [Design]"
             }
           ]
