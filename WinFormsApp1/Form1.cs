@@ -44,8 +44,6 @@ public partial class Form1 : Form
         var pixelOffsetModeValues = Enum.GetValues<PixelOffsetMode>().Select(i => i.ToString()).ToList();
         cbPixelOffsetMode.Items.AddRange(pixelOffsetModeValues.ToArray());
         cbPixelOffsetMode.SelectedIndex = 0;
-
-
     }
 
     private void Timer_Tick(object? sender, EventArgs e)
@@ -62,8 +60,11 @@ public partial class Form1 : Form
 
     private void RepaintPicture()
     {
-        _videoBuffer.FillBufferWithNewFrame();
-        _videoBuffer.CalculateFrame(checkBox1.Checked);
+        _videoBuffer.FillBufferWithNewFrame(cbC64Dither.Checked);
+        _videoBuffer.CalculateFrame(checkBox1.Checked, cbC64Dither.Checked);
+        if(cbC64Dither.Checked)
+            _videoBuffer.DirectBitmap = _videoBuffer.DirectBitmap.ResizeBitmap(160, 200);
+        
         pictureBox1.Image = _videoBuffer.DirectBitmap.Bitmap;
     }
        

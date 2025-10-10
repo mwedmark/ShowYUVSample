@@ -30,6 +30,31 @@ public class DirectBitmap : IDisposable
         Bits[index] = col;
     }
 
+    public DirectBitmap ResizeBitmap(int newWidth, int newHeight)
+    {
+        if (newWidth <= 0 || newHeight <= 0)
+            throw new ArgumentException("Width and height must be positive.");
+
+        var resized = new DirectBitmap(newWidth, newHeight);
+        float xRatio = (float)Width / newWidth;
+        float yRatio = (float)Height / newHeight;
+
+        for (int y = 0; y < newHeight; y++)
+        {
+            int srcY = Math.Min((int)(y * yRatio), Height - 1);
+            for (int x = 0; x < newWidth; x++)
+            {
+                int srcX = Math.Min((int)(x * xRatio), Width - 1);
+                Color color = GetPixel(srcX, srcY);
+                resized.SetPixel(x, y, color);
+            }
+        }
+
+        return resized;
+    }
+
+
+
     public Color GetPixel(int x, int y)
     {
         var index = x + (y * Width);
