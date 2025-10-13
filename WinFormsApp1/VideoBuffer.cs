@@ -9,6 +9,7 @@ public class VideoBuffer
     private const int DataBufferSize = SizeOfBwFrame + SizeOfFrameComponent * 2;
     private const string Filename = "akiyo_cif.yuv";
     public DirectBitmap DirectBitmap = new(XSize, YSize);
+    private readonly C64Colors _c64Colors = new();
 
     public readonly byte[] DataBuffer = new byte[DataBufferSize];
     public int CurrentFrame;
@@ -35,10 +36,11 @@ public class VideoBuffer
             { 10, 18, 23,  1, 15 }
         };
         int matrixSize = bayerMatrix.GetLength(0);
-        int matrixMax = bayerMatrix.Length;
+        //int matrixMax = bayerMatrix.Length;
         
         int offsetX = 0; // or e.g. CurrentFrame % matrixSize for slow drift
         int offsetY = 0;
+        var selectedColors = !useColor ? _c64Colors.GetGreyscaleColors() : _c64Colors.GetAllColors();
         
         for (var y = 0; y < YSize - 1; y++)
         {
@@ -51,23 +53,59 @@ public class VideoBuffer
                 var v = !useColor ? 0 : DataBuffer[currentOffset + SizeOfFrameComponent] - 128;
     
                 // Use this if dither is used with 5 greyscale colors (c64 colors)
-                if(c64Dither)
+                int r = 0, g = 0, b = 0;
+                if (c64Dither)
                 {
-                    var term = 255 / 5;
-                    var quantize5Steps = (byte)(Y / term * term);
-                    // Stable ordered dithering using Bayer matrix with offset
-                    int threshold = bayerMatrix[(y + offsetY) % matrixSize, (x + offsetX) % matrixSize];
-                    int diff = Y % term;
-                    int dither = (diff * matrixMax / term) > threshold ? term : 0;
-                    Y = (byte)Math.Min(255, quantize5Steps + dither);
-                }
-                var r = Cap(Y + ((73 * v) >> 6));
-                var g = Cap(Y - ((101 * u) >> 8) - ((595 * v) >> 10));
-                var b = Cap(Y + ((1041 * u) >> 9));
+                    var palette = selectedColors;
+                    int matrixValue = bayerMatrix[(y + offsetY) % matrixSize, (x + offsetX) % matrixSize];
     
-                DirectBitmap.SetPixel(x, y, Color.FromArgb(r, g, b));
+                    // Calculate the original RGB value
+                    int origR, origG, origB;
+                    if (!useColor)
+                    {
+                        origR = origG = origB = Y;
+                    }
+                    else
+                    {
+                        origR = Cap(Y + ((73 * v) >> 6));
+                        origG = Cap(Y - ((101 * u) >> 8) - ((595 * v) >> 10));
+                        origB = Cap(Y + ((1041 * u) >> 9));
+                    }
+
+                    // Calculate Bayer threshold (0-24 scaled to -32 to +32 range)
+                    int threshold = (matrixValue * 64 / 24) - 32;
+    
+                    // Apply threshold to create dithered values
+                    int ditheredR = Cap(origR + threshold);
+                    int ditheredG = Cap(origG + threshold);
+                    int ditheredB = Cap(origB + threshold);
+
+                    // Find the closest C64 color to the dithered value
+                    var selected = palette
+                        .OrderBy(c =>
+                            Math.Pow(c.R - ditheredR, 2) +
+                            Math.Pow(c.G - ditheredG, 2) +
+                            Math.Pow(c.B - ditheredB, 2))
+                        .First();
+
+                    r = selected.R;
+                    g = selected.G;
+                    b = selected.B;
+                }
+
+                else
+                {
+                    r = Cap(Y + ((73 * v) >> 6));
+                    g = Cap(Y - ((101 * u) >> 8) - ((595 * v) >> 10));
+                    b = Cap(Y + ((1041 * u) >> 9));
+                }
+                var selectedColor = Color.FromArgb(r, g, b);
+                
+                DirectBitmap.SetPixel(x, y, selectedColor);
             }
         }
+
+       
     }
 
     private static int Cap(int input)
