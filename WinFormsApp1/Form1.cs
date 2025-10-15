@@ -61,9 +61,20 @@ public partial class Form1 : Form
     private void RepaintPicture()
     {
         _videoBuffer.FillBufferWithNewFrame(cbC64Dither.Checked);
+
+        // if (cbC64Resolution.Checked)
+        // {
+        //     _videoBuffer.DirectBitmap = _videoBuffer.DirectBitmap.ResizeBitmap(160, 200);
+        // }
+        
         _videoBuffer.CalculateFrame(checkBox1.Checked, cbC64Dither.Checked);
-        if(cbC64Dither.Checked)
+        
+        if(cbC64Resolution.Checked)
+        {
             _videoBuffer.DirectBitmap = _videoBuffer.DirectBitmap.ResizeBitmap(160, 200);
+            if(cbKoalaCompatible.Checked)
+                _videoBuffer.CreateKoalaCompatibleImage();
+        }
         
         pictureBox1.Image = _videoBuffer.DirectBitmap.Bitmap;
     }
@@ -125,6 +136,15 @@ public partial class Form1 : Form
 
     private void nudFrameRate_ValueChanged(object sender, EventArgs e)
     {
+        if (nudFrameRate.Value == 0)
+        {
+            _timer.Stop();
+            return;
+        }
+        
+        if(!_timer.Enabled)
+            _timer.Start();
+            
         _timer.Interval = 1000 / (int)nudFrameRate.Value;
     }
 

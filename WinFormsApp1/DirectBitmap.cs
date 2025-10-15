@@ -49,7 +49,6 @@ public class DirectBitmap : IDisposable
                 resized.SetPixel(x, y, color);
             }
         }
-
         return resized;
     }
 
