@@ -25,22 +25,12 @@ public class VideoBuffer
         var read = file.Read(DataBuffer, 0, DataBuffer.Length);
     }
 
-    public void CalculateFrame(bool useColor, bool c64Dither = false)
+    public void CalculateFrame(bool useColor, bool c64Dither = false, bool c64Colors = false)
     {
-        var bayerMatrix = new[,]
-        {
-            {  0, 13,  7, 19,  3 },
-            { 17,  5, 21,  9, 11 },
-            {  8, 20,  2, 14,  6 },
-            { 24, 12, 16,  4, 22 },
-            { 10, 18, 23,  1, 15 }
-        };
-        int matrixSize = bayerMatrix.GetLength(0);
-        //int matrixMax = bayerMatrix.Length;
+        int matrixSize = 2;
+        var bayerMatrix = BayerMatrixes.GetMatrixBySize(matrixSize);
         
-        int offsetX = 0; // or e.g. CurrentFrame % matrixSize for slow drift
-        int offsetY = 0;
-        var selectedColors = !useColor ? _c64Colors.GetGreyscaleColors() : _c64Colors.GetAllColors();
+        var selectedColors = !useColor ? _c64Colors.GetSmallGreyscaleColors() : _c64Colors.GetAllColors();
         
         Parallel.For(0, YSize - 1, y =>
         {
@@ -57,7 +47,7 @@ public class VideoBuffer
                 if (c64Dither)
                 {
                     var palette = selectedColors;
-                    int matrixValue = bayerMatrix[(y + offsetY) % matrixSize, (x + offsetX) % matrixSize];
+                    int matrixValue = bayerMatrix[y % matrixSize, x % matrixSize];
                 
                     // Calculate the original RGB value
                     int origR, origG, origB;
@@ -99,8 +89,23 @@ public class VideoBuffer
                     g = Cap(Y - ((101 * u) >> 8) - ((595 * v) >> 10));
                     b = Cap(Y + ((1041 * u) >> 9));
                 }
-                var selectedColor = Color.FromArgb(r, g, b);
 
+                Color selectedColor;
+                if (c64Colors)
+                {
+                    //find closest color in c64 palette
+                    selectedColor = selectedColors
+                        .OrderBy(c =>
+                            Math.Pow(c.R - r, 2) +
+                            Math.Pow(c.G - g, 2) +
+                            Math.Pow(c.B - b, 2))
+                        .First();
+                    //selectedColor = Color.FromArgb(r, g, b);
+                }
+                else
+                {
+                    selectedColor = Color.FromArgb(r, g, b);
+                }
                 DirectBitmap.SetPixel(x, y, selectedColor);
             }
         });

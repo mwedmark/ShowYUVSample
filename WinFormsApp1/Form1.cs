@@ -67,7 +67,7 @@ public partial class Form1 : Form
         //     _videoBuffer.DirectBitmap = _videoBuffer.DirectBitmap.ResizeBitmap(160, 200);
         // }
         
-        _videoBuffer.CalculateFrame(checkBox1.Checked, cbC64Dither.Checked);
+        _videoBuffer.CalculateFrame(cbShowColor.Checked, cbC64Dither.Checked, cbC64Colors.Checked);
         
         if(cbC64Resolution.Checked)
         {

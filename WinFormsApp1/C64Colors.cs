@@ -30,6 +30,13 @@ public class C64Colors
             .Where(color => color.R == color.G && color.G == color.B).ToList();
         return greys.OrderBy(g => g.R).ToList();
     }
+    
+    public List<Color> GetSmallGreyscaleColors()
+    {
+        var greys = _c64Colours
+            .Where(color => color.R == color.G && color.G == color.B && color.R != 0x78).ToList();
+        return greys.OrderBy(g => g.R).ToList();
+    }
 
     public List<Color> GetAllColors()
     {
